@@ -56,9 +56,9 @@ export async function POST(req) {
         ? 'https://passport.duitku.com/webapi/api/merchant/v2/inquiry'
         : 'https://sandbox.duitku.com/webapi/api/merchant/v2/inquiry';
 
-      // Signature Duitku: SHA256 dari merchantCode + merchantOrderId + paymentAmount + merchantKey
+      // Signature Duitku: MD5 dari merchantCode + merchantOrderId + paymentAmount + merchantKey
       const signatureSrc = merchantCode + orderId + amount + merchantKey;
-      const signature = crypto.createHash('sha256').update(signatureSrc).digest('hex');
+      const signature = crypto.createHash('md5').update(signatureSrc).digest('hex');
 
       // Tentukan Callback dan Return URL
       const callbackUrl = process.env.DUITKU_CALLBACK_URL || `${req.headers.get('origin') || 'http://localhost:3000'}/api/payment-callback`;
