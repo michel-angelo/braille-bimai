@@ -299,7 +299,7 @@ export default function CampaignClient({ initialData }) {
               <h1 className="campaign-title">Wakaf Al-Qur'an Braille: Terangi Hati & Bantu Kemandirian Sahabat Tunanetra</h1>
               
               <div className="campaign-tracker-box">
-                <div class="campaign-collected">
+                <div className="campaign-collected">
                   <span className="collected-label">Terkumpul</span>
                   <h2 className="collected-amount">{formatCurrency(collectedAmount)}</h2>
                   <span className="target-amount">dari target {formatCurrency(targetAmount)}</span>
@@ -320,7 +320,7 @@ export default function CampaignClient({ initialData }) {
                   </div>
                   <div className="stat-item">
                     <span className="stat-value">45</span>
-                    <span class="stat-label">Hari Lagi</span>
+                    <span className="stat-label">Hari Lagi</span>
                   </div>
                 </div>
               </div>
@@ -399,7 +399,7 @@ export default function CampaignClient({ initialData }) {
                     </div>
                   </li>
                   <li>
-                    <span className="checkmark-icon"><i class="ri-checkbox-circle-fill"></i></span>
+                    <span className="checkmark-icon"><i className="ri-checkbox-circle-fill"></i></span>
                     <div className="step-desc">
                       <strong>Pilih Metode Donasi & Bayar</strong>
                       <span>Pilih metode pembayaran aman (QRIS, VA Bank Transfer, atau E-Wallet).</span>
@@ -509,7 +509,7 @@ export default function CampaignClient({ initialData }) {
                 <span className="kabar-date">15 Juli 2026</span>
                 <h4 className="kabar-headline">Penyaluran Tahap I: 40 Mushaf Al-Qur'an Braille Terdistribusi</h4>
                 <img src="/images/distribusi-wakaf-qur'an.webp" alt="Penyaluran Al-Qur'an Braille" className="kabar-img" loading="lazy" />
-                <p class="kabar-desc">Alhamdulillah, berkat kedermawanan para wakif, tim BIMAI telah berhasil mendistribusikan 40 mushaf Al-Qur'an Braille ke Pesantren Disabilitas Inklusi di Tangerang Selatan. Terima kasih atas partisipasi aktif Anda.</p>
+                <p className="kabar-desc">Alhamdulillah, berkat kedermawanan para wakif, tim BIMAI telah berhasil mendistribusikan 40 mushaf Al-Qur'an Braille ke Pesantren Disabilitas Inklusi di Tangerang Selatan. Terima kasih atas partisipasi aktif Anda.</p>
               </div>
               
               <div className="kabar-item">
@@ -805,7 +805,7 @@ export default function CampaignClient({ initialData }) {
           <div className="testi-list">
             <div className="testi-item">
               <div className="testi-user">
-                <div className="testi-avatar"><i class="ri-user-heart-line"></i></div>
+                <div className="testi-avatar"><i className="ri-user-heart-line"></i></div>
                 <div className="testi-meta">
                   <h4>M. Rizky</h4>
                   <span>Penerima Manfaat (Santri SLB)</span>
