@@ -1,14 +1,15 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const rawUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseUrl = rawUrl ? rawUrl.replace(/\/rest\/v1\/?$/, "") : "";
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 // Gunakan Service Role Key di server agar bisa mengakses data untuk agregat secara aman,
 // namun kita tidak akan mengekspos kolom pribadi (nomor WA) ke publik.
 let supabase = null;
 if (supabaseUrl && supabaseServiceKey && 
-    supabaseUrl !== 'https://your-project.supabase.co' && 
-    supabaseServiceKey !== 'your-private-service-role-key-here') {
+    supabaseUrl !== 'https://your-project-id.supabase.co' && 
+    supabaseServiceKey !== 'your-service-role-key-here') {
   supabase = createClient(supabaseUrl, supabaseServiceKey);
 }
 
