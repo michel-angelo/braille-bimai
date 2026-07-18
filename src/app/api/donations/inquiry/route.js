@@ -88,7 +88,9 @@ export async function POST(req) {
       });
 
       if (!response.ok) {
-        throw new Error(`Duitku HTTP error: ${response.status}`);
+        const errorText = await response.text();
+        console.error("Duitku error response body:", errorText);
+        throw new Error(`Duitku HTTP error: ${response.status} - ${errorText}`);
       }
 
       const resData = await response.json();
