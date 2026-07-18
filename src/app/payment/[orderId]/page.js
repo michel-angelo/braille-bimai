@@ -13,6 +13,11 @@ export default function PaymentPage() {
   const [error, setError] = useState("");
   const [copySuccess, setCopySuccess] = useState(false);
   const [simulating, setSimulating] = useState(false);
+  const [customAlert, setCustomAlert] = useState({ isOpen: false, message: "", type: "info" });
+
+  const showAlert = (message, type = "info") => {
+    setCustomAlert({ isOpen: true, message, type });
+  };
 
   // Mengambil detail transaksi pembayaran dari Supabase via API Route
   useEffect(() => {
@@ -77,12 +82,12 @@ export default function PaymentPage() {
       if (data.success) {
         // Polling status di atas akan mendeteksi perubahan status dan melakukan redirect otomatis
       } else {
-        alert(data.message || "Simulasi gagal");
+        showAlert(data.message || "Simulasi gagal", "error");
         setSimulating(false);
       }
     } catch (err) {
       console.error(err);
-      alert("Koneksi gagal");
+      showAlert("Koneksi gagal", "error");
       setSimulating(false);
     }
   };
@@ -199,6 +204,25 @@ export default function PaymentPage() {
               </button>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Custom Alert Overlay */}
+      <div className={`custom-alert-overlay ${customAlert.isOpen ? "active" : ""}`}>
+        <div className="custom-alert-box">
+          <div className={`custom-alert-icon ${customAlert.type}`}>
+            {customAlert.type === "success" && <i className="ri-checkbox-circle-fill"></i>}
+            {customAlert.type === "warning" && <i className="ri-alert-fill"></i>}
+            {customAlert.type === "error" && <i className="ri-close-circle-fill"></i>}
+            {customAlert.type === "info" && <i className="ri-information-fill"></i>}
+          </div>
+          <p className="custom-alert-message">{customAlert.message}</p>
+          <button
+            className="btn-custom-alert-close"
+            onClick={() => setCustomAlert({ ...customAlert, isOpen: false })}
+          >
+            OK
+          </button>
         </div>
       </div>
     </div>

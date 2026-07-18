@@ -2502,3 +2502,230 @@ section.bg-alt {
     display: none;
   }
 }
+
+/* --- CUSTOM ALERT MODAL STYLES --- */
+.custom-alert-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  padding: 16px;
+}
+
+.custom-alert-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.custom-alert-box {
+  background: var(--bg-white, #fff);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 380px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.15), 0 10px 10px -5px rgba(0,0,0,0.04);
+  transform: scale(0.9);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+.custom-alert-overlay.active .custom-alert-box {
+  transform: scale(1);
+}
+
+.custom-alert-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #ecfdf5;
+  color: var(--accent, #10b981);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin: 0 auto 16px auto;
+}
+
+.custom-alert-icon.warning {
+  background: #fffbeb;
+  color: #f59e0b;
+}
+
+.custom-alert-icon.error {
+  background: #fef2f2;
+  color: #ef4444;
+}
+
+.custom-alert-message {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-main, #0f172a);
+  line-height: 1.5;
+  margin-bottom: 20px;
+  white-space: pre-line;
+}
+
+.btn-custom-alert-close {
+  width: 100%;
+  padding: 12px 24px;
+  border-radius: 50px;
+  background: var(--accent, #10b981);
+  color: #fff;
+  font-family: var(--font-main, inherit);
+  font-weight: 700;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.15);
+}
+
+.btn-custom-alert-close:hover {
+  background: var(--primary, #047857);
+}
+
+/* --- CUSTOM PAYMENT SELECTOR GRID --- */
+.payment-selector-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.payment-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.payment-group-title {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+
+.payment-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.payment-option-card {
+  background: var(--bg-white, #fff);
+  border: 1.5px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.20s ease;
+  user-select: none;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.payment-option-card:hover {
+  border-color: #94a3b8;
+  background: var(--bg-light);
+}
+
+.payment-option-card.selected {
+  border-color: var(--accent);
+  background: #ecfdf5;
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.06);
+}
+
+.payment-badge {
+  width: 36px;
+  height: 22px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+  letter-spacing: 0.2px;
+}
+
+/* Custom brand colors for tags */
+.badge-qris {
+  background: linear-gradient(135deg, #ef4444, #3b82f6, #10b981);
+  font-size: 8px;
+}
+.badge-bca {
+  background: #092e6e;
+}
+.badge-mandiri {
+  background: #1c3f94;
+  color: #f59e0b;
+}
+.badge-bni {
+  background: #ff6600;
+}
+.badge-bri {
+  background: #00569c;
+}
+.badge-dana {
+  background: #118eea;
+}
+.badge-ovo {
+  background: #4c2a86;
+}
+.badge-shopeepay {
+  background: #ee4d2d;
+  font-size: 7px;
+}
+
+.payment-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.payment-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.payment-desc {
+  font-size: 9px;
+  color: var(--text-muted);
+  line-height: 1.2;
+}
+
+.payment-option-card.selected::after {
+  content: '\eb7a'; /* Remix Icon Check Fill */
+  font-family: 'remixicon' !important;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: var(--accent);
+  color: #fff;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  font-size: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}

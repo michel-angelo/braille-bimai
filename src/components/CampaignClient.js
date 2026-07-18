@@ -37,6 +37,18 @@ const brailleMap = {
 export default function CampaignClient({ initialData }) {
   const router = useRouter();
 
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // --- CUSTOM ALERT STATE ---
+  const [customAlert, setCustomAlert] = useState({ isOpen: false, message: "", type: "info" });
+
+  const showAlert = (message, type = "info") => {
+    setCustomAlert({ isOpen: true, message, type });
+  };
+
   // --- STATS & DATA POLLING ---
   const [collectedAmount, setCollectedAmount] = useState(initialData.collectedAmount);
   const [donorsCount, setDonorsCount] = useState(initialData.donorsCount);
@@ -123,15 +135,21 @@ export default function CampaignClient({ initialData }) {
 
   // --- OTHER INTERACTIVE HANDLERS ---
   const handleOpenModal = (pkgName, amt) => {
+    console.log("handleOpenModal triggered:", pkgName, amt);
     setModalPackageName(pkgName);
     setModalAmount(amt);
     setIsModalOpen(true);
-    document.body.style.overflow = "hidden";
+    if (typeof document !== "undefined") {
+      document.body.style.overflow = "hidden";
+    }
   };
 
   const handleCloseModal = () => {
+    console.log("handleCloseModal triggered");
     setIsModalOpen(false);
-    document.body.style.overflow = "";
+    if (typeof document !== "undefined") {
+      document.body.style.overflow = "";
+    }
     // Reset form fields
     setDonorName("");
     setDonorPhone("");
@@ -144,7 +162,7 @@ export default function CampaignClient({ initialData }) {
   const handleCustomDonate = () => {
     const amt = parseInt(customAmountText);
     if (isNaN(amt) || amt < 75000) {
-      alert("Minimal nominal wakaf kustom adalah Rp 75.000");
+      showAlert("Minimal nominal wakaf kustom adalah Rp 75.000", "warning");
       return;
     }
     handleOpenModal("Wakaf Kustom", amt);
@@ -176,12 +194,12 @@ export default function CampaignClient({ initialData }) {
         // Alihkan donatur ke halaman pembayaran yang baru digenerasikan
         router.push(`/payment/${data.orderId}`);
       } else {
-        alert(data.message || "Gagal memproses inkuiri pembayaran. Silakan coba lagi.");
+        showAlert(data.message || "Gagal memproses inkuiri pembayaran. Silakan coba lagi.", "error");
         setIsSubmitting(false);
       }
     } catch (err) {
       console.error("Error submitting form:", err);
-      alert("Koneksi gagal. Silakan periksa jaringan Anda.");
+      showAlert("Koneksi gagal. Silakan periksa jaringan Anda.", "error");
       setIsSubmitting(false);
     }
   };
@@ -207,7 +225,7 @@ export default function CampaignClient({ initialData }) {
       }).catch((err) => console.log("Error sharing:", err));
     } else {
       navigator.clipboard.writeText(campaignUrl).then(() => {
-        alert("Tautan kampanye berhasil disalin ke clipboard!");
+        showAlert("Tautan kampanye berhasil disalin ke clipboard!", "success");
       });
     }
   };
@@ -257,6 +275,7 @@ export default function CampaignClient({ initialData }) {
   };
 
   const formatTimeAgo = (isoString) => {
+    if (!mounted) return "...";
     const date = new Date(isoString);
     const now = new Date();
     const diffMs = now - date;
@@ -1017,9 +1036,11 @@ export default function CampaignClient({ initialData }) {
       </div>
 
       {/* INTERACTIVE DONATION MODAL */}
-      {isModalOpen && (
-        <div className="donation-modal active">
-          <div className="modal-content">
+      <div 
+        className={`donation-modal ${isModalOpen ? "active" : ""}`}
+        onClick={(e) => { if (e.target === e.currentTarget) handleCloseModal(); }}
+      >
+        <div className="modal-content">
             <div className="modal-header">
               <h3>Formulir Wakaf Al-Qur'an Braille</h3>
               <button className="modal-close" onClick={handleCloseModal}>&times;</button>
@@ -1086,32 +1107,112 @@ export default function CampaignClient({ initialData }) {
                 </div>
 
                 <div className="modal-form-group">
-                  <label htmlFor="payment-method">Metode Pembayaran <span style={{ color: "red" }}>*</span></label>
-                  <select
-                    id="payment-method"
-                    value={paymentMethod}
-                    onChange={(e) => setPaymentMethod(e.target.value)}
-                    style={{
-                      width: "100%",
-                      padding: "12px",
-                      borderRadius: "var(--radius-sm)",
-                      border: "1px solid #cbd5e1",
-                      background: "#fff",
-                      fontSize: "14px",
-                      marginTop: "4px"
-                    }}
-                    required
-                  >
-                    <option value="">-- Pilih Metode Pembayaran --</option>
-                    <option value="DQ">QRIS (GoPay, OVO, ShopeePay, DANA, dll)</option>
-                    <option value="BC">BCA Virtual Account</option>
-                    <option value="M2">Mandiri Virtual Account</option>
-                    <option value="I1">BNI Virtual Account</option>
-                    <option value="BR">BRI Virtual Account</option>
-                    <option value="DA">DANA E-Wallet</option>
-                    <option value="OV">OVO E-Wallet</option>
-                    <option value="SP">ShopeePay E-Wallet</option>
-                  </select>
+                  <label>Metode Pembayaran <span style={{ color: "red" }}>*</span></label>
+                  
+                  <div className="payment-selector-container">
+                    {/* Kategori 1: Instan & QRIS */}
+                    <div className="payment-group">
+                      <span className="payment-group-title">Instan & QRIS</span>
+                      <div className="payment-grid">
+                        <div 
+                          className={`payment-option-card ${paymentMethod === 'DQ' ? 'selected' : ''}`}
+                          onClick={() => setPaymentMethod('DQ')}
+                        >
+                          <div className="payment-badge badge-qris">QRIS</div>
+                          <div className="payment-info">
+                            <span className="payment-name">QRIS</span>
+                            <span className="payment-desc">Gopay, OVO, Shopee, dll</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Kategori 2: Virtual Account */}
+                    <div className="payment-group">
+                      <span className="payment-group-title">Virtual Account (VA)</span>
+                      <div className="payment-grid">
+                        <div 
+                          className={`payment-option-card ${paymentMethod === 'BC' ? 'selected' : ''}`}
+                          onClick={() => setPaymentMethod('BC')}
+                        >
+                          <div className="payment-badge badge-bca">BCA</div>
+                          <div className="payment-info">
+                            <span className="payment-name">BCA VA</span>
+                            <span className="payment-desc">Verifikasi Otomatis</span>
+                          </div>
+                        </div>
+                        <div 
+                          className={`payment-option-card ${paymentMethod === 'M2' ? 'selected' : ''}`}
+                          onClick={() => setPaymentMethod('M2')}
+                        >
+                          <div className="payment-badge badge-mandiri">MDR</div>
+                          <div className="payment-info">
+                            <span className="payment-name">Mandiri VA</span>
+                            <span className="payment-desc">Verifikasi Otomatis</span>
+                          </div>
+                        </div>
+                        <div 
+                          className={`payment-option-card ${paymentMethod === 'I1' ? 'selected' : ''}`}
+                          onClick={() => setPaymentMethod('I1')}
+                        >
+                          <div className="payment-badge badge-bni">BNI</div>
+                          <div className="payment-info">
+                            <span className="payment-name">BNI VA</span>
+                            <span className="payment-desc">Verifikasi Otomatis</span>
+                          </div>
+                        </div>
+                        <div 
+                          className={`payment-option-card ${paymentMethod === 'BR' ? 'selected' : ''}`}
+                          onClick={() => setPaymentMethod('BR')}
+                        >
+                          <div className="payment-badge badge-bri">BRI</div>
+                          <div className="payment-info">
+                            <span className="payment-name">BRI VA</span>
+                            <span className="payment-desc">Verifikasi Otomatis</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Kategori 3: E-Wallet */}
+                    <div className="payment-group">
+                      <span className="payment-group-title">E-Wallet</span>
+                      <div className="payment-grid">
+                        <div 
+                          className={`payment-option-card ${paymentMethod === 'DA' ? 'selected' : ''}`}
+                          onClick={() => setPaymentMethod('DA')}
+                        >
+                          <div className="payment-badge badge-dana">DANA</div>
+                          <div className="payment-info">
+                            <span className="payment-name">DANA</span>
+                            <span className="payment-desc">Instan E-Wallet</span>
+                          </div>
+                        </div>
+                        <div 
+                          className={`payment-option-card ${paymentMethod === 'OV' ? 'selected' : ''}`}
+                          onClick={() => setPaymentMethod('OV')}
+                        >
+                          <div className="payment-badge badge-ovo">OVO</div>
+                          <div className="payment-info">
+                            <span className="payment-name">OVO</span>
+                            <span className="payment-desc">Instan E-Wallet</span>
+                          </div>
+                        </div>
+                        <div 
+                          className={`payment-option-card ${paymentMethod === 'SP' ? 'selected' : ''}`}
+                          onClick={() => setPaymentMethod('SP')}
+                        >
+                          <div className="payment-badge badge-shopeepay">SPAY</div>
+                          <div className="payment-info">
+                            <span className="payment-name">ShopeePay</span>
+                            <span className="payment-desc">Instan E-Wallet</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <input type="hidden" name="payment-method" value={paymentMethod} required />
                 </div>
 
                 <button type="submit" className="btn-submit-modal" style={{ marginTop: "16px" }} disabled={isSubmitting}>
@@ -1125,7 +1226,25 @@ export default function CampaignClient({ initialData }) {
             </form>
           </div>
         </div>
-      )}
-    </>
-  );
-}
+
+        {/* Custom Alert Overlay */}
+        <div className={`custom-alert-overlay ${customAlert.isOpen ? "active" : ""}`}>
+          <div className="custom-alert-box">
+            <div className={`custom-alert-icon ${customAlert.type}`}>
+              {customAlert.type === "success" && <i className="ri-checkbox-circle-fill"></i>}
+              {customAlert.type === "warning" && <i className="ri-alert-fill"></i>}
+              {customAlert.type === "error" && <i className="ri-close-circle-fill"></i>}
+              {customAlert.type === "info" && <i className="ri-information-fill"></i>}
+            </div>
+            <p className="custom-alert-message">{customAlert.message}</p>
+            <button
+              className="btn-custom-alert-close"
+              onClick={() => setCustomAlert({ ...customAlert, isOpen: false })}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      </>
+    );
+  }
