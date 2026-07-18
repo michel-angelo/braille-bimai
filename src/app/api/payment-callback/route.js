@@ -37,15 +37,11 @@ export async function POST(req) {
       return Response.json({ success: false, message: "Parameter tidak lengkap" }, { status: 400 });
     }
 
-    // Verifikasi Signature Duitku Callback: MD5 dari merchantCode + merchantOrderId + amount + merchantKey
-    // Kita cek kedua kemungkinan urutan hashing Duitku untuk kompatibilitas versi
-    const expectedSignatureSrc1 = merchantCode + merchantOrderId + amount + merchantKey;
-    const expectedSignature1 = crypto.createHash('md5').update(expectedSignatureSrc1).digest('hex');
+    // Verifikasi Signature Duitku Callback V2: HMAC-SHA256 dari merchantCode + amount + merchantOrderId menggunakan merchantKey
+    const expectedSignatureSrc = merchantCode + amount + merchantOrderId;
+    const expectedSignature = crypto.createHmac('sha256', merchantKey).update(expectedSignatureSrc).digest('hex');
 
-    const expectedSignatureSrc2 = merchantCode + amount + merchantOrderId + merchantKey;
-    const expectedSignature2 = crypto.createHash('md5').update(expectedSignatureSrc2).digest('hex');
-
-    const isSignatureValid = (signature === expectedSignature1) || (signature === expectedSignature2);
+    const isSignatureValid = (signature === expectedSignature);
 
     // Jika Duitku terkonfigurasi, pastikan signature valid
     const hasConfiguredDuitku = merchantKey && merchantKey !== 'ganti-dengan-merchant-key-anda';

@@ -56,9 +56,9 @@ export async function POST(req) {
         ? 'https://passport.duitku.com/webapi/api/merchant/v2/inquiry'
         : 'https://sandbox.duitku.com/webapi/api/merchant/v2/inquiry';
 
-      // Signature Duitku: MD5 dari merchantCode + merchantOrderId + paymentAmount + merchantKey
-      const signatureSrc = merchantCode + orderId + amount + merchantKey;
-      const signature = crypto.createHash('md5').update(signatureSrc).digest('hex');
+      // Signature Duitku V2: HMAC-SHA256 dari merchantCode + orderId + amount menggunakan merchantKey
+      const signatureSrc = merchantCode + orderId + amount;
+      const signature = crypto.createHmac('sha256', merchantKey).update(signatureSrc).digest('hex');
 
       // Tentukan Callback dan Return URL
       const callbackUrl = process.env.DUITKU_CALLBACK_URL || `${req.headers.get('origin') || 'http://localhost:3000'}/api/payment-callback`;
@@ -95,7 +95,7 @@ export async function POST(req) {
 
       const resData = await response.json();
 
-      if (resData.resultCode === '00') {
+      if (resData.statusCode === '00') {
         const ref = resData.reference;
         const code = resData.qrString || resData.vaNumber || resData.paymentUrl;
 
@@ -117,7 +117,8 @@ export async function POST(req) {
           reference: ref
         });
       } else {
-        throw new Error(resData.resultMessage || "Gagal inkuiri pembayaran Duitku");
+        console.error("Duitku Inquiry Failed. Response:", resData);
+        throw new Error(resData.statusMessage || `Gagal inkuiri pembayaran Duitku (Code: ${resData.statusCode})`);
       }
     } else {
       // Duitku belum dikonfigurasi, jalankan mode simulasi pembayaran!
