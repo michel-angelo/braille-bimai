@@ -14,11 +14,11 @@ if (supabaseUrl && supabaseServiceKey &&
 }
 
 export async function getCampaignData() {
-  const targetAmount = 150000000;
+  const targetAmount = 50000000;
   
   // Data fallback default jika Supabase belum terkonfigurasi/error
-  let collectedAmount = 64200000;
-  let donorsCount = 324;
+  let collectedAmount = 8250000;
+  let donorsCount = 10;
   let donorsList = [
     { donor_name: 'Ibu Hajah Fatimah', wakif_name: 'Almarhum Suami', amount: 2250000, niat: 'Niat wakaf atas nama almarhum suami saya. Semoga dilapangkan kuburnya.', created_at: new Date(Date.now() - 3600000).toISOString() },
     { donor_name: 'Hamba Allah', wakif_name: '', amount: 75000, niat: 'Bismillah untuk patungan wakaf juz. Berkah selalu.', created_at: new Date(Date.now() - 3 * 3600000).toISOString() },
