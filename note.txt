@@ -1,0 +1,11 @@
+Oke agar lebih mudah kita diskusi terlebih dahulu. Pertama saya akan menggunakan Duitku sebagai Payment Gateway. Jadi nanti kurang lebih alur donasi dan programnya seperti ini:
+
+1. Calon Donatur akan masuk ke landing page dan memutuskan akan berdonasi (terlepas apakah ia akan membaca detail/deskripsi yang sudah ditulis)
+2. Calon Donatur diberikan opsi tombol nominal dari paling murah, mulai dari 75k (bungkus dengan bundling yang menarik) sampai 1jt, dan juga akan ada custom nominal (min 75k).
+3. Setelah Calon Donatur mengisi nominal donasi, ia diharuskan untuk mengisi form yang berisi [nama_donatur, nomor_wa, nama_wakif, do'a, status_payment], setelah itu memilih metode pembayaran yang sudah disediakan [QRIS, VA, E-Wallet]
+Ketika calon donatur klik tombol selanjutnya untuk mendapatkan QRIS/KODE BAYAR VA, data form tersebut sudah masuk ke database, disini akan ada percabangan:
+    a. Jika Calon Donatur melakukan pembayaran dan sukses berdonasi, buat Thankyou page yang berisi ucapan terimakasih dan doa sebagainya, serta tambahkan 1 tombol `Konfirmasi Admin`, disini juga akan terjadi percabangan:
+        i. Jika donatur klik tombol `Konfirmasi Admin`, tombol itu sudah memuat script `wa.me` yang berisi "Saya dengan nama {nama_donatur}, telah melakukan donasi sebesar {nominal_donasi} untuk Qur'an Braille atas nama wakif {nama_wakif} dengan ID Transaksi {id_transaksi}. Mohon untuk admin melakukan Konfirmasi kembali." atau buat script wa yang lebih profesional yang scriptnya kurang lebih seperti itu.
+        ii. Jika donatur tidak klik tombol `Konfirmasi Admin` dan langsung keluar dari browser, ini tidak apa-apa, nanti akan saya tugaskan kepada CS untuk melakukan Konfirmasi kembali dengan langsung chat kepada Donatur tersebut.
+    b. Jika Calon Donatur memutuskan untuk keluar dan tidak jadi untuk berdonasi setelah tiba di halaman untuk mendapatkan QRIS/KODE BAYAR VA, buat status_payment di database sebagai False/Pending/Belum melakukan pembayaran, sehingga bisa di FU oleh CS saya kedepannya.
+4. Setiap beberapa menit landing page melakukan fetching dari database untuk menampilkan data real-time berapa banyak donatur yang telah berdonasi? berapa banyak jumlah donasi yang terkumpul? berapa persen donasi yang terkumpul? visualisasikan data tersebut mengambil dari database yang status_payment sudah True/Lunas/Berhasil melakukan pembayaran.
