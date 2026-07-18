@@ -53,8 +53,8 @@ export async function POST(req) {
 
     if (hasConfiguredDuitku) {
       const targetUrl = environment === 'production' 
-        ? 'https://passport.duitku.com/webapi/api/merchant/v2/inquiry.aspx'
-        : 'https://sandbox.duitku.com/webapi/api/merchant/v2/inquiry.aspx';
+        ? 'https://passport.duitku.com/webapi/api/merchant/v2/inquiry'
+        : 'https://sandbox.duitku.com/webapi/api/merchant/v2/inquiry';
 
       // Signature Duitku: SHA256 dari merchantCode + merchantOrderId + paymentAmount + merchantKey
       const signatureSrc = merchantCode + orderId + amount + merchantKey;
