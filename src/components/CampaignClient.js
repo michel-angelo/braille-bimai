@@ -218,6 +218,15 @@ export default function CampaignClient({ initialData, whatsappCS }) {
 
         const waUrl = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(textMessage)}`;
         
+        // Trigger TikTok Pixel CompletePayment conversion event
+        if (typeof window !== "undefined" && window.ttq) {
+          window.ttq.track("CompletePayment", {
+            content_name: "Wakaf Al-Qur'an Braille",
+            value: Number(modalAmount),
+            currency: "IDR",
+          });
+        }
+
         // Redirect to WhatsApp
         window.location.href = waUrl;
       } else {
