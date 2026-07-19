@@ -6,5 +6,6 @@ export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const initialData = await getCampaignData();
-  return <CampaignWrapper initialData={initialData} />;
+  const whatsappCS = process.env.NOMOR_WA_CS || "6281385042303";
+  return <CampaignWrapper initialData={initialData} whatsappCS={whatsappCS} />;
 }

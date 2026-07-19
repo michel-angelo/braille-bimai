@@ -6,6 +6,6 @@ const CampaignClient = dynamic(() => import("./CampaignClient"), {
   ssr: false,
 });
 
-export default function CampaignWrapper({ initialData }) {
-  return <CampaignClient initialData={initialData} />;
+export default function CampaignWrapper({ initialData, whatsappCS }) {
+  return <CampaignClient initialData={initialData} whatsappCS={whatsappCS} />;
 }
