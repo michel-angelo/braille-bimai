@@ -2,7 +2,25 @@ import "./globals.css";
 
 export const metadata = {
   title: "Wakaf Al-Qur'an Braille - Terangi Hati Sahabat Tunanetra | BIMAI",
-  description: "Hadirkan kemandirian ibadah bagi disabilitas netra. Salurkan wakaf Al-Qur'an Braille terbaik Anda bersama Yayasan Bina Masyarakat Indonesia (BIMAI) secara mudah dan amanah.",
+  description: "Bantu sahabat tunanetra beribadah secara mandiri. Salurkan wakaf mushaf Al-Qur'an Braille terbaik Anda bersama Yayasan Bina Masyarakat Indonesia (BIMAI) secara mudah dan amanah.",
+  keywords: [
+    "wakaf alquran braille",
+    "wakaf tunanetra",
+    "donasi alquran braille",
+    "yayasan bimai",
+    "bina masyarakat indonesia",
+    "donasi online",
+    "sedekah jariyah",
+    "wakaf quran",
+    "tunanetra mengaji"
+  ],
+  authors: [{ name: "Yayasan Bina Masyarakat Indonesia", url: "https://bimaipeduli.id" }],
+  creator: "Yayasan BIMAI",
+  publisher: "Yayasan BIMAI",
+  robots: {
+    index: true,
+    follow: true,
+  },
   icons: {
     icon: "/images/bimai.ico",
     shortcut: "/images/bimai.ico",
