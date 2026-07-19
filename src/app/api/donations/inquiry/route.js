@@ -47,9 +47,8 @@ export async function POST(req) {
     }
 
     // 2. Hubungi Duitku API untuk Inquiry Transaksi jika Duitku terkonfigurasi
-    const hasConfiguredDuitku = merchantCode && merchantKey && 
-      merchantCode !== 'ganti-dengan-merchant-code-anda' && 
-      merchantKey !== 'ganti-dengan-merchant-key-anda';
+    // DI-BYPASS SEMENTARA: Set ke false karena akun Duitku masih dalam verifikasi agar ads besok lancar tanpa error.
+    const hasConfiguredDuitku = false;
 
     if (hasConfiguredDuitku) {
       const targetUrl = environment === 'production' 
