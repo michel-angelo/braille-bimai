@@ -107,7 +107,7 @@ export default function CampaignClient({ initialData, whatsappCS }) {
   const [donorPhone, setDonorPhone] = useState("");
   const [wakifName, setWakifName] = useState("");
   const [donorNiat, setDonorNiat] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("Transfer Manual");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // --- COPY BUTTON STATE ---
@@ -162,7 +162,7 @@ export default function CampaignClient({ initialData, whatsappCS }) {
     setDonorPhone("");
     setWakifName("");
     setDonorNiat("");
-    setPaymentMethod("");
+    setPaymentMethod("Transfer Manual");
     setIsSubmitting(false);
   };
 
@@ -1521,7 +1521,7 @@ export default function CampaignClient({ initialData, whatsappCS }) {
                 ></textarea>
               </div>
 
-              <div className="modal-form-group">
+              <div className="modal-form-group" style={{ display: "none" }}>
                 <label>
                   Metode Pembayaran <span style={{ color: "red" }}>*</span>
                 </label>
