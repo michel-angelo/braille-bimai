@@ -40,6 +40,20 @@ export default function CampaignClient({ initialData, whatsappCS }) {
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);
+    // Trigger TikTok Pixel ViewContent event
+    if (typeof window !== "undefined" && window.ttq) {
+      window.ttq.track("ViewContent", {
+        contents: [
+          {
+            content_id: "wakaf_braille",
+            content_type: "product",
+            content_name: "Wakaf Al-Qur'an Braille"
+          }
+        ],
+        value: 75000,
+        currency: "IDR"
+      });
+    }
   }, []);
 
   // --- CUSTOM ALERT STATE ---
@@ -149,6 +163,21 @@ export default function CampaignClient({ initialData, whatsappCS }) {
     if (typeof document !== "undefined") {
       document.body.style.overflow = "hidden";
     }
+
+    // Trigger TikTok Pixel InitiateCheckout event
+    if (typeof window !== "undefined" && window.ttq) {
+      window.ttq.track("InitiateCheckout", {
+        contents: [
+          {
+            content_id: "wakaf_braille",
+            content_type: "product",
+            content_name: pkgName
+          }
+        ],
+        value: Number(amt),
+        currency: "IDR"
+      });
+    }
   };
 
   const handleCloseModal = () => {
@@ -218,12 +247,52 @@ export default function CampaignClient({ initialData, whatsappCS }) {
 
         const waUrl = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(textMessage)}`;
         
-        // Trigger TikTok Pixel CompletePayment conversion event
+        // Trigger TikTok Pixel identify & CompletePayment/Purchase events
         if (typeof window !== "undefined" && window.ttq) {
+          try {
+            // Hashing phone number with SHA-256 for advanced matching (PII data postback)
+            let rawPhone = donorPhone.replace(/[^0-9]/g, "");
+            if (rawPhone.startsWith("0")) {
+              rawPhone = "62" + rawPhone.substring(1);
+            }
+            const standardPhone = "+" + rawPhone;
+            
+            const utf8 = new TextEncoder().encode(standardPhone.trim().toLowerCase());
+            const hashBuffer = await crypto.subtle.digest("SHA-256", utf8);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashedPhone = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+
+            window.ttq.identify({
+              phone_number: hashedPhone
+            });
+          } catch (hashErr) {
+            console.error("Gagal meng-hash data donatur:", hashErr);
+          }
+
+          // CompletePayment Event
           window.ttq.track("CompletePayment", {
-            content_name: "Wakaf Al-Qur'an Braille",
+            contents: [
+              {
+                content_id: "wakaf_braille",
+                content_type: "product",
+                content_name: modalPackageName
+              }
+            ],
             value: Number(modalAmount),
-            currency: "IDR",
+            currency: "IDR"
+          });
+
+          // Purchase Event
+          window.ttq.track("Purchase", {
+            contents: [
+              {
+                content_id: "wakaf_braille",
+                content_type: "product",
+                content_name: modalPackageName
+              }
+            ],
+            value: Number(modalAmount),
+            currency: "IDR"
           });
         }
 
