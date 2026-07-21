@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import crypto from "crypto";
+import { sendTikTokServerEvent } from "@/lib/tiktokEvents";
 
 const rawUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseUrl = rawUrl ? rawUrl.replace(/\/rest\/v1\/?$/, "") : "";
@@ -45,6 +46,15 @@ export async function POST(req) {
       console.error("Database insert error:", dbError);
       throw dbError;
     }
+
+    // Lacak event server-side ke TikTok Events API (100% akurat tanpa adblocker)
+    sendTikTokServerEvent({
+      eventName: "CompletePayment",
+      orderId: orderId,
+      amount: Number(amount),
+      phone: phone,
+      pageUrl: req.headers.get("referer") || "https://bimaipeduli.id/donasi",
+    });
 
     // 2. Hubungi Duitku API untuk Inquiry Transaksi jika Duitku terkonfigurasi
     // DI-BYPASS SEMENTARA: Set ke false karena akun Duitku masih dalam verifikasi agar ads besok lancar tanpa error.
