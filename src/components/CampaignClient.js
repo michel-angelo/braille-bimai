@@ -54,6 +54,14 @@ export default function CampaignClient({ initialData, whatsappCS }) {
         currency: "IDR"
       });
     }
+    // Trigger Meta Pixel ViewContent event
+    if (typeof window !== "undefined" && window.fbq) {
+      window.fbq("track", "ViewContent", {
+        content_name: "Wakaf Al-Qur'an Braille",
+        value: 75000,
+        currency: "IDR"
+      });
+    }
   }, []);
 
   // --- CUSTOM ALERT STATE ---
@@ -178,6 +186,14 @@ export default function CampaignClient({ initialData, whatsappCS }) {
         currency: "IDR"
       });
     }
+    // Trigger Meta Pixel InitiateCheckout event
+    if (typeof window !== "undefined" && window.fbq) {
+      window.fbq("track", "InitiateCheckout", {
+        content_name: pkgName,
+        value: Number(amt),
+        currency: "IDR"
+      });
+    }
   };
 
   const handleCloseModal = () => {
@@ -291,6 +307,20 @@ export default function CampaignClient({ initialData, whatsappCS }) {
                 content_name: modalPackageName
               }
             ],
+            value: Number(modalAmount),
+            currency: "IDR"
+          });
+        }
+
+        // Trigger Meta Pixel Purchase & Lead events
+        if (typeof window !== "undefined" && window.fbq) {
+          window.fbq("track", "Purchase", {
+            content_name: modalPackageName,
+            value: Number(modalAmount),
+            currency: "IDR"
+          });
+          window.fbq("track", "Lead", {
+            content_name: modalPackageName,
             value: Number(modalAmount),
             currency: "IDR"
           });
