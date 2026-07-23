@@ -527,7 +527,23 @@ export default function CampaignClient({ initialData, whatsappCS }) {
                     Yayasan Bina Masyarakat Indonesia
                   </span>
                   <span className="verified-badge">
-                    <i className="ri-checkbox-circle-fill"></i> Terverifikasi
+                    <i className="ri-checkbox-circle-fill"></i> Terverifikasi Resmi
+                  </span>
+                </div>
+              </div>
+
+              {/* Legal & Trust Verification Badges */}
+              <div className="trust-badges-card">
+                <div className="trust-badge-item">
+                  <i className="ri-shield-check-fill text-emerald-600"></i>
+                  <span>
+                    <strong>Yayasan Resmi Legal</strong> (SK Kemenkumham: AHU-0010921.AH.01.04.Tahun 2017)
+                  </span>
+                </div>
+                <div className="trust-badge-item">
+                  <i className="ri-file-list-3-fill text-amber-600"></i>
+                  <span>
+                    <strong>Laporan Transparan</strong> bukti penyaluran dikirim berkala via WA/Email
                   </span>
                 </div>
               </div>
@@ -1515,12 +1531,23 @@ export default function CampaignClient({ initialData, whatsappCS }) {
         </div>
       </footer>
 
-      {/* Floating CTA Button for Mobile */}
+      {/* High-Converting Floating Sticky CTA Bar for Mobile */}
       <div className="floating-cta">
-        <a href="#packages" className="btn-whatsapp" id="cta-floating">
-          <i className="ri-heart-fill"></i>
-          Pilih Paket Wakaf Qur'an
-        </a>
+        <div className="floating-cta-inner">
+          <div className="floating-cta-info">
+            <span className="floating-cta-title">Wakaf Al-Qur'an Braille</span>
+            <span className="floating-cta-sub">Mulai Rp 75.000 (Patungan 1 Juz)</span>
+          </div>
+          <button
+            type="button"
+            className="btn-floating-donate"
+            id="cta-floating"
+            onClick={() => handleOpenModal("Wakaf Patungan (1 Juz)", 75000)}
+          >
+            <i className="ri-heart-fill"></i>
+            Wakaf Sekarang
+          </button>
+        </div>
       </div>
 
       {/* INTERACTIVE DONATION MODAL */}
