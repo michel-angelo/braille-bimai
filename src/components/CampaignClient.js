@@ -95,7 +95,7 @@ export default function CampaignClient({ initialData, whatsappCS }) {
             content_name: "Wakaf Al-Qur'an Braille"
           }
         ],
-        value: 75000,
+        value: 20000,
         currency: "IDR"
       });
     }
@@ -103,7 +103,7 @@ export default function CampaignClient({ initialData, whatsappCS }) {
     if (typeof window !== "undefined" && window.fbq) {
       window.fbq("track", "ViewContent", {
         content_name: "Wakaf Al-Qur'an Braille",
-        value: 75000,
+        value: 20000,
         currency: "IDR"
       });
     }
@@ -282,8 +282,8 @@ export default function CampaignClient({ initialData, whatsappCS }) {
 
   const handleCustomDonate = () => {
     const amt = parseInt(customAmountText);
-    if (isNaN(amt) || amt < 75000) {
-      showAlert("Minimal nominal wakaf kustom adalah Rp 75.000", "warning");
+    if (isNaN(amt) || amt < 20000) {
+      showAlert("Minimal nominal wakaf kustom adalah Rp 20.000", "warning");
       return;
     }
     handleOpenModal("Wakaf Kustom", amt);
@@ -1047,6 +1047,24 @@ export default function CampaignClient({ initialData, whatsappCS }) {
           <div className="package-grid">
             <div
               className="package-card"
+              data-package-name="Sedekah Wakaf Patungan"
+              data-package-amount="20000"
+            >
+              <h3>Sedekah Wakaf Patungan</h3>
+              <p className="package-desc">
+                Sedekah patungan ikhlas membantu pencetakan & penyaluran Al-Qur'an Braille untuk santri tunanetra.
+              </p>
+              <span className="package-price">Rp 20.000</span>
+              <button
+                className="btn-select-package"
+                onClick={() => handleOpenModal("Sedekah Wakaf Patungan", 20000)}
+              >
+                Pilih Paket
+              </button>
+            </div>
+
+            <div
+              className="package-card"
               data-package-name="Paket Wakaf 1 Juz"
               data-package-amount="75000"
             >
@@ -1078,27 +1096,6 @@ export default function CampaignClient({ initialData, whatsappCS }) {
               <button
                 className="btn-select-package"
                 onClick={() => handleOpenModal("Paket Wakaf 5 Juz", 375000)}
-              >
-                Pilih Paket
-              </button>
-            </div>
-
-            <div
-              className="package-card"
-              data-package-name="Wakaf Setengah Set (15 Juz)"
-              data-package-amount="1125000"
-            >
-              <h3>Wakaf Setengah Set (15 Juz)</h3>
-              <p className="package-desc">
-                Wakaf setengah set Al-Qur'an Braille tebal untuk perpustakaan
-                SLB/masjid inklusi.
-              </p>
-              <span className="package-price">Rp 1.125.000</span>
-              <button
-                className="btn-select-package"
-                onClick={() =>
-                  handleOpenModal("Wakaf Setengah Set (15 Juz)", 1125000)
-                }
               >
                 Pilih Paket
               </button>
@@ -1138,8 +1135,8 @@ export default function CampaignClient({ initialData, whatsappCS }) {
                   id="custom-amount"
                   value={customAmountText}
                   onChange={(e) => setCustomAmountText(e.target.value)}
-                  placeholder="Masukkan nominal bebas (min 75k)..."
-                  min="75000"
+                  placeholder="Masukkan nominal bebas (min 20k)..."
+                  min="20000"
                 />
               </div>
               <button
@@ -1677,14 +1674,14 @@ export default function CampaignClient({ initialData, whatsappCS }) {
               <span className="floating-badge-dot"></span> Wakaf Al-Qur'an Braille
             </span>
             <span className="floating-cta-price">
-              Patungan Mulai <strong>Rp 75rb</strong>
+              Patungan Mulai <strong>Rp 20rb</strong>
             </span>
           </div>
           <button
             type="button"
             className="btn-floating-cta-gold"
             id="cta-floating"
-            onClick={() => handleOpenModal("Wakaf Patungan (1 Juz)", 75000)}
+            onClick={() => handleOpenModal("Sedekah Wakaf Patungan", 20000)}
           >
             <span>Wakaf Sekarang</span>
             <i className="ri-arrow-right-line"></i>
@@ -1735,6 +1732,16 @@ export default function CampaignClient({ initialData, whatsappCS }) {
                 <div className="compact-preset-chips">
                   <button
                     type="button"
+                    className={`compact-chip ${modalAmount === 20000 ? "active" : ""}`}
+                    onClick={() => {
+                      setModalPackageName("Sedekah Wakaf Patungan");
+                      setModalAmount(20000);
+                    }}
+                  >
+                    Patungan (20rb)
+                  </button>
+                  <button
+                    type="button"
                     className={`compact-chip ${modalAmount === 75000 ? "active" : ""}`}
                     onClick={() => {
                       setModalPackageName("Paket Wakaf 1 Juz");
@@ -1752,16 +1759,6 @@ export default function CampaignClient({ initialData, whatsappCS }) {
                     }}
                   >
                     5 Juz (375rb)
-                  </button>
-                  <button
-                    type="button"
-                    className={`compact-chip ${modalAmount === 750000 ? "active" : ""}`}
-                    onClick={() => {
-                      setModalPackageName("Paket Wakaf 10 Juz");
-                      setModalAmount(750000);
-                    }}
-                  >
-                    10 Juz (750rb)
                   </button>
                   <button
                     type="button"
