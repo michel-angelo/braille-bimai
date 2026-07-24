@@ -1671,256 +1671,259 @@ export default function CampaignClient({ initialData, whatsappCS }) {
         </div>
       </div>
 
-      {/* INTERACTIVE DONATION MODAL */}
+      {/* INTERACTIVE IMPRESSIVE DONATION MODAL */}
       <div
         className={`donation-modal ${isModalOpen ? "active" : ""}`}
         onClick={(e) => {
           if (e.target === e.currentTarget) handleCloseModal();
         }}
       >
-        <div className="modal-content">
-          <div className="modal-header">
-            <h3>Formulir Wakaf Al-Qur'an Braille</h3>
+        <div className="modal-content modal-content-modern">
+          {/* Header */}
+          <div className="modal-header-modern">
+            <div className="modal-header-brand">
+              <div className="header-icon-box">
+                <i className="ri-heart-pulse-fill"></i>
+              </div>
+              <div>
+                <h3>Formulir Wakaf Al-Qur'an Braille</h3>
+                <span className="modal-sub-badge">
+                  <i className="ri-shield-check-fill"></i> Yayasan Resmi & Terverifikasi
+                </span>
+              </div>
+            </div>
             <button className="modal-close" onClick={handleCloseModal}>
               &times;
             </button>
           </div>
+
           <form id="donation-confirm-form" onSubmit={handleFormSubmit}>
-            <div className="modal-body">
-              <div className="modal-form-group">
-                <label htmlFor="modal-package-name">Paket yang Dipilih</label>
-                <input
-                  type="text"
-                  id="modal-package-name"
-                  value={modalPackageName}
-                  readOnly
-                />
+            <div className="modal-body modal-body-modern">
+              {/* Summary Card */}
+              <div className="modal-summary-card">
+                <div className="summary-left">
+                  <span className="summary-label">Paket Dipilih</span>
+                  <h4 className="summary-package">{modalPackageName || "Wakaf Al-Qur'an Braille"}</h4>
+                </div>
+                <div className="summary-right">
+                  <span className="summary-label">Nominal Wakaf</span>
+                  <h3 className="summary-amount">{formatCurrency(modalAmount)}</h3>
+                </div>
               </div>
 
-              <div className="modal-form-group">
-                <label style={{ fontWeight: "700" }}>Nominal Wakaf</label>
-                <span
-                  id="formatted-amount-display"
-                  style={{
-                    display: "block",
-                    fontSize: "20px",
-                    color: "var(--accent)",
-                    fontWeight: "800",
-                    marginTop: "4px",
-                  }}
-                >
-                  {formatCurrency(modalAmount)}
-                </span>
+              {/* Preset Selector */}
+              <div className="modal-preset-section">
+                <label className="preset-label">Ubah Paket / Nominal Wakaf:</label>
+                <div className="preset-chips-grid">
+                  <button
+                    type="button"
+                    className={`preset-chip ${modalAmount === 75000 ? "active" : ""}`}
+                    onClick={() => {
+                      setModalPackageName("Paket Wakaf 1 Juz");
+                      setModalAmount(75000);
+                    }}
+                  >
+                    <span>1 Juz</span>
+                    <strong>Rp 75rb</strong>
+                  </button>
+                  <button
+                    type="button"
+                    className={`preset-chip ${modalAmount === 375000 ? "active" : ""}`}
+                    onClick={() => {
+                      setModalPackageName("Paket Wakaf 5 Juz");
+                      setModalAmount(375000);
+                    }}
+                  >
+                    <span>5 Juz</span>
+                    <strong>Rp 375rb</strong>
+                  </button>
+                  <button
+                    type="button"
+                    className={`preset-chip ${modalAmount === 750000 ? "active" : ""}`}
+                    onClick={() => {
+                      setModalPackageName("Paket Wakaf 10 Juz");
+                      setModalAmount(750000);
+                    }}
+                  >
+                    <span>10 Juz</span>
+                    <strong>Rp 750rb</strong>
+                  </button>
+                  <button
+                    type="button"
+                    className={`preset-chip ${modalAmount === 2250000 ? "active" : ""}`}
+                    onClick={() => {
+                      setModalPackageName("Paket Wakaf 1 Set (30 Juz)");
+                      setModalAmount(2250000);
+                    }}
+                  >
+                    <span>1 Set (30 Juz)</span>
+                    <strong>Rp 2,25 Jt</strong>
+                  </button>
+                </div>
               </div>
 
+              {/* Input Form Fields */}
               <div className="modal-form-group">
-                <label htmlFor="donor-name">
-                  Nama Lengkap Donatur <span style={{ color: "red" }}>*</span>
+                <label htmlFor="donor-name" className="input-label-with-icon">
+                  <i className="ri-user-line"></i> Nama Lengkap Donatur <span className="req-star">*</span>
                 </label>
                 <input
                   type="text"
                   id="donor-name"
                   value={donorName}
                   onChange={(e) => setDonorName(e.target.value)}
-                  placeholder="Contoh: Budi Santoso..."
+                  placeholder="Masukkan nama lengkap Anda..."
                   required
+                  className="input-modern"
                 />
               </div>
 
               <div className="modal-form-group">
-                <label htmlFor="donor-phone">
-                  Nomor HP / WhatsApp <span style={{ color: "red" }}>*</span>
+                <label htmlFor="donor-phone" className="input-label-with-icon">
+                  <i className="ri-whatsapp-line"></i> Nomor WhatsApp <span className="req-star">*</span>
                 </label>
                 <input
                   type="tel"
                   id="donor-phone"
                   value={donorPhone}
                   onChange={(e) => setDonorPhone(e.target.value)}
-                  placeholder="Contoh: 0812XXXXXXXX..."
+                  placeholder="Contoh: 08123456789..."
                   required
+                  className="input-modern"
                 />
+                <span className="input-note">
+                  <i className="ri-lock-line"></i> Laporan penyaluran & kuitansi wakaf akan dikirimkan ke nomor ini.
+                </span>
               </div>
 
               <div className="modal-form-group">
-                <label htmlFor="wakif-name">
-                  Atas Nama Wakif{" "}
-                  <span
-                    style={{ color: "var(--text-muted)", fontSize: "11px" }}
-                  >
-                    (Opsional - misal: Orang tua, Almarhum/ah)
-                  </span>
-                </label>
+                <div className="label-with-hint">
+                  <label htmlFor="wakif-name" className="input-label-with-icon">
+                    <i className="ri-heart-line"></i> Atas Nama Wakif <span className="opt-tag">(Opsional)</span>
+                  </label>
+                </div>
                 <input
                   type="text"
                   id="wakif-name"
                   value={wakifName}
                   onChange={(e) => setWakifName(e.target.value)}
-                  placeholder="Niat wakaf atas nama..."
+                  placeholder="Diniatkan atas nama siapa..."
+                  className="input-modern"
                 />
+                <div className="suggestion-tags">
+                  <span className="tag-hint-title">Pilih cepat:</span>
+                  <button
+                    type="button"
+                    className="tag-pill"
+                    onClick={() =>
+                      setWakifName(donorName ? `Hamba Allah (${donorName})` : "Hamba Allah")
+                    }
+                  >
+                    Hamba Allah
+                  </button>
+                  <button
+                    type="button"
+                    className="tag-pill"
+                    onClick={() => setWakifName("Kedua Orang Tua")}
+                  >
+                    Kedua Orang Tua
+                  </button>
+                  <button
+                    type="button"
+                    className="tag-pill"
+                    onClick={() => setWakifName("Almarhum / Almarhumah Orang Tua")}
+                  >
+                    Almarhum/ah Orang Tua
+                  </button>
+                </div>
               </div>
 
               <div className="modal-form-group">
-                <label htmlFor="donor-niat">
-                  Niat Wakaf / Doa Khusus{" "}
-                  <span
-                    style={{ color: "var(--text-muted)", fontSize: "11px" }}
-                  >
-                    (Opsional)
-                  </span>
-                </label>
+                <div className="label-with-hint">
+                  <label htmlFor="donor-niat" className="input-label-with-icon">
+                    <i className="ri-chat-quote-line"></i> Niat Wakaf & Doa Khusus <span className="opt-tag">(Opsional)</span>
+                  </label>
+                </div>
                 <textarea
                   id="donor-niat"
                   rows="3"
                   value={donorNiat}
                   onChange={(e) => setDonorNiat(e.target.value)}
-                  placeholder="Contoh: Semoga wakaf ini mempermudah kelancaran rezeki, kelulusan, kesembuhan, dll..."
+                  placeholder="Tuliskan doa atau hajat khusus Anda di sini..."
+                  className="textarea-modern"
                 ></textarea>
-              </div>
-
-              <div className="modal-form-group" style={{ display: "none" }}>
-                <label>
-                  Metode Pembayaran <span style={{ color: "red" }}>*</span>
-                </label>
-
-                <div className="payment-selector-container">
-                  {/* Kategori 1: Instan & QRIS */}
-                  <div className="payment-group">
-                    <span className="payment-group-title">Instan & QRIS</span>
-                    <div className="payment-grid">
-                      <div
-                        className={`payment-option-card ${paymentMethod === "DQ" ? "selected" : ""}`}
-                        onClick={() => setPaymentMethod("DQ")}
-                      >
-                        <div className="payment-badge badge-qris">QRIS</div>
-                        <div className="payment-info">
-                          <span className="payment-name">QRIS</span>
-                          <span className="payment-desc">
-                            Gopay, OVO, Shopee, dll
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Kategori 2: Virtual Account */}
-                  <div className="payment-group">
-                    <span className="payment-group-title">
-                      Virtual Account (VA)
-                    </span>
-                    <div className="payment-grid">
-                      <div
-                        className={`payment-option-card ${paymentMethod === "BC" ? "selected" : ""}`}
-                        onClick={() => setPaymentMethod("BC")}
-                      >
-                        <div className="payment-badge badge-bca">BCA</div>
-                        <div className="payment-info">
-                          <span className="payment-name">BCA VA</span>
-                          <span className="payment-desc">
-                            Verifikasi Otomatis
-                          </span>
-                        </div>
-                      </div>
-                      <div
-                        className={`payment-option-card ${paymentMethod === "M2" ? "selected" : ""}`}
-                        onClick={() => setPaymentMethod("M2")}
-                      >
-                        <div className="payment-badge badge-mandiri">MDR</div>
-                        <div className="payment-info">
-                          <span className="payment-name">Mandiri VA</span>
-                          <span className="payment-desc">
-                            Verifikasi Otomatis
-                          </span>
-                        </div>
-                      </div>
-                      <div
-                        className={`payment-option-card ${paymentMethod === "I1" ? "selected" : ""}`}
-                        onClick={() => setPaymentMethod("I1")}
-                      >
-                        <div className="payment-badge badge-bni">BNI</div>
-                        <div className="payment-info">
-                          <span className="payment-name">BNI VA</span>
-                          <span className="payment-desc">
-                            Verifikasi Otomatis
-                          </span>
-                        </div>
-                      </div>
-                      <div
-                        className={`payment-option-card ${paymentMethod === "BR" ? "selected" : ""}`}
-                        onClick={() => setPaymentMethod("BR")}
-                      >
-                        <div className="payment-badge badge-bri">BRI</div>
-                        <div className="payment-info">
-                          <span className="payment-name">BRI VA</span>
-                          <span className="payment-desc">
-                            Verifikasi Otomatis
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Kategori 3: E-Wallet */}
-                  <div className="payment-group">
-                    <span className="payment-group-title">E-Wallet</span>
-                    <div className="payment-grid">
-                      <div
-                        className={`payment-option-card ${paymentMethod === "DA" ? "selected" : ""}`}
-                        onClick={() => setPaymentMethod("DA")}
-                      >
-                        <div className="payment-badge badge-dana">DANA</div>
-                        <div className="payment-info">
-                          <span className="payment-name">DANA</span>
-                          <span className="payment-desc">Instan E-Wallet</span>
-                        </div>
-                      </div>
-                      <div
-                        className={`payment-option-card ${paymentMethod === "OV" ? "selected" : ""}`}
-                        onClick={() => setPaymentMethod("OV")}
-                      >
-                        <div className="payment-badge badge-ovo">OVO</div>
-                        <div className="payment-info">
-                          <span className="payment-name">OVO</span>
-                          <span className="payment-desc">Instan E-Wallet</span>
-                        </div>
-                      </div>
-                      <div
-                        className={`payment-option-card ${paymentMethod === "SP" ? "selected" : ""}`}
-                        onClick={() => setPaymentMethod("SP")}
-                      >
-                        <div className="payment-badge badge-shopeepay">
-                          SPAY
-                        </div>
-                        <div className="payment-info">
-                          <span className="payment-name">ShopeePay</span>
-                          <span className="payment-desc">Instan E-Wallet</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <div className="suggestion-tags">
+                  <span className="tag-hint-title">Pilih doa:</span>
+                  <button
+                    type="button"
+                    className="tag-pill"
+                    onClick={() =>
+                      setDonorNiat((prev) =>
+                        prev
+                          ? `${prev}, Semoga pahala mengalir abadi`
+                          : "Semoga pahala jariyah ini mengalir abadi untuk keluarga."
+                      )
+                    }
+                  >
+                    Pahala Jariyah
+                  </button>
+                  <button
+                    type="button"
+                    className="tag-pill"
+                    onClick={() =>
+                      setDonorNiat((prev) =>
+                        prev
+                          ? `${prev}, Diberi keberkahan rezeki`
+                          : "Semoga diberi keberkahan rezeki dan kelancaran usaha."
+                      )
+                    }
+                  >
+                    Keberkahan Rezeki
+                  </button>
+                  <button
+                    type="button"
+                    className="tag-pill"
+                    onClick={() =>
+                      setDonorNiat((prev) =>
+                        prev
+                          ? `${prev}, Wasilah kesembuhan`
+                          : "Semoga menjadi wasilah kesembuhan dan kesehatan."
+                      )
+                    }
+                  >
+                    Kesembuhan
+                  </button>
                 </div>
-
-                <input
-                  type="hidden"
-                  name="payment-method"
-                  value={paymentMethod}
-                  required
-                />
               </div>
 
-              <button
-                type="submit"
-                className="btn-submit-modal"
-                style={{ marginTop: "16px" }}
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? (
-                  <>Memproses Pembayaran...</>
-                ) : (
-                  <>
-                    <i className="ri-wallet-3-line"></i> Bayar Sekarang
-                  </>
-                )}
-              </button>
+              <input
+                type="hidden"
+                name="payment-method"
+                value={paymentMethod}
+              />
+
+              <div className="modal-submit-box">
+                <button
+                  type="submit"
+                  className="btn-submit-modal-impressive"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <i className="ri-loader-4-line animate-spin"></i> Memproses Pembayaran...
+                    </>
+                  ) : (
+                    <>
+                      <span>Lanjutkan Wakaf & Pembayaran</span>
+                      <i className="ri-arrow-right-line"></i>
+                    </>
+                  )}
+                </button>
+                <div className="modal-security-footer">
+                  <i className="ri-shield-flash-line"></i>
+                  <span>Pembayaran Amanah & Terkonfirmasi Langsung</span>
+                </div>
+              </div>
             </div>
           </form>
         </div>
