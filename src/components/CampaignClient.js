@@ -1699,72 +1699,65 @@ export default function CampaignClient({ initialData, whatsappCS }) {
 
           <form id="donation-confirm-form" onSubmit={handleFormSubmit}>
             <div className="modal-body modal-body-modern">
-              {/* Summary Card */}
-              <div className="modal-summary-card">
-                <div className="summary-left">
-                  <span className="summary-label">Paket Dipilih</span>
-                  <h4 className="summary-package">{modalPackageName || "Wakaf Al-Qur'an Braille"}</h4>
+              {/* Compact Summary Header with Integrated Preset Chips */}
+              <div className="modal-compact-summary">
+                <div className="compact-summary-top">
+                  <span className="compact-package-title">
+                    {modalPackageName || "Wakaf Al-Qur'an Braille"}
+                  </span>
+                  <span className="compact-amount-badge">
+                    {formatCurrency(modalAmount)}
+                  </span>
                 </div>
-                <div className="summary-right">
-                  <span className="summary-label">Nominal Wakaf</span>
-                  <h3 className="summary-amount">{formatCurrency(modalAmount)}</h3>
-                </div>
-              </div>
 
-              {/* Preset Selector */}
-              <div className="modal-preset-section">
-                <label className="preset-label">Ubah Paket / Nominal Wakaf:</label>
-                <div className="preset-chips-grid">
+                {/* Integrated Preset Chips */}
+                <div className="compact-preset-chips">
                   <button
                     type="button"
-                    className={`preset-chip ${modalAmount === 75000 ? "active" : ""}`}
+                    className={`compact-chip ${modalAmount === 75000 ? "active" : ""}`}
                     onClick={() => {
                       setModalPackageName("Paket Wakaf 1 Juz");
                       setModalAmount(75000);
                     }}
                   >
-                    <span>1 Juz</span>
-                    <strong>Rp 75rb</strong>
+                    1 Juz (75rb)
                   </button>
                   <button
                     type="button"
-                    className={`preset-chip ${modalAmount === 375000 ? "active" : ""}`}
+                    className={`compact-chip ${modalAmount === 375000 ? "active" : ""}`}
                     onClick={() => {
                       setModalPackageName("Paket Wakaf 5 Juz");
                       setModalAmount(375000);
                     }}
                   >
-                    <span>5 Juz</span>
-                    <strong>Rp 375rb</strong>
+                    5 Juz (375rb)
                   </button>
                   <button
                     type="button"
-                    className={`preset-chip ${modalAmount === 750000 ? "active" : ""}`}
+                    className={`compact-chip ${modalAmount === 750000 ? "active" : ""}`}
                     onClick={() => {
                       setModalPackageName("Paket Wakaf 10 Juz");
                       setModalAmount(750000);
                     }}
                   >
-                    <span>10 Juz</span>
-                    <strong>Rp 750rb</strong>
+                    10 Juz (750rb)
                   </button>
                   <button
                     type="button"
-                    className={`preset-chip ${modalAmount === 2250000 ? "active" : ""}`}
+                    className={`compact-chip ${modalAmount === 2250000 ? "active" : ""}`}
                     onClick={() => {
                       setModalPackageName("Paket Wakaf 1 Set (30 Juz)");
                       setModalAmount(2250000);
                     }}
                   >
-                    <span>1 Set (30 Juz)</span>
-                    <strong>Rp 2,25 Jt</strong>
+                    30 Juz (2,25Jt)
                   </button>
                 </div>
               </div>
 
-              {/* Input Form Fields */}
-              <div className="modal-form-group">
-                <label htmlFor="donor-name" className="input-label-with-icon">
+              {/* Form Input Fields */}
+              <div className="modal-form-group-compact">
+                <label htmlFor="donor-name" className="input-label-compact">
                   <i className="ri-user-line"></i> Nama Lengkap Donatur <span className="req-star">*</span>
                 </label>
                 <input
@@ -1772,14 +1765,14 @@ export default function CampaignClient({ initialData, whatsappCS }) {
                   id="donor-name"
                   value={donorName}
                   onChange={(e) => setDonorName(e.target.value)}
-                  placeholder="Masukkan nama lengkap Anda..."
+                  placeholder="Nama lengkap Anda..."
                   required
-                  className="input-modern"
+                  className="input-compact"
                 />
               </div>
 
-              <div className="modal-form-group">
-                <label htmlFor="donor-phone" className="input-label-with-icon">
+              <div className="modal-form-group-compact">
+                <label htmlFor="donor-phone" className="input-label-compact">
                   <i className="ri-whatsapp-line"></i> Nomor WhatsApp <span className="req-star">*</span>
                 </label>
                 <input
@@ -1789,100 +1782,91 @@ export default function CampaignClient({ initialData, whatsappCS }) {
                   onChange={(e) => setDonorPhone(e.target.value)}
                   placeholder="Contoh: 08123456789..."
                   required
-                  className="input-modern"
+                  className="input-compact"
                 />
-                <span className="input-note">
-                  <i className="ri-lock-line"></i> Laporan penyaluran & kuitansi wakaf akan dikirimkan ke nomor ini.
-                </span>
               </div>
 
-              <div className="modal-form-group">
-                <div className="label-with-hint">
-                  <label htmlFor="wakif-name" className="input-label-with-icon">
-                    <i className="ri-heart-line"></i> Atas Nama Wakif <span className="opt-tag">(Opsional)</span>
-                  </label>
-                </div>
+              <div className="modal-form-group-compact">
+                <label htmlFor="wakif-name" className="input-label-compact">
+                  <i className="ri-heart-line"></i> Atas Nama Wakif <span className="opt-tag">(Opsional)</span>
+                </label>
                 <input
                   type="text"
                   id="wakif-name"
                   value={wakifName}
                   onChange={(e) => setWakifName(e.target.value)}
-                  placeholder="Diniatkan atas nama siapa..."
-                  className="input-modern"
+                  placeholder="Niat atas nama siapa..."
+                  className="input-compact"
                 />
-                <div className="suggestion-tags">
-                  <span className="tag-hint-title">Pilih cepat:</span>
+                <div className="suggestion-tags-scroll">
                   <button
                     type="button"
-                    className="tag-pill"
+                    className="tag-pill-compact"
                     onClick={() =>
                       setWakifName(donorName ? `Hamba Allah (${donorName})` : "Hamba Allah")
                     }
                   >
-                    Hamba Allah
+                    + Hamba Allah
                   </button>
                   <button
                     type="button"
-                    className="tag-pill"
+                    className="tag-pill-compact"
                     onClick={() => setWakifName("Kedua Orang Tua")}
                   >
-                    Kedua Orang Tua
+                    + Kedua Orang Tua
                   </button>
                   <button
                     type="button"
-                    className="tag-pill"
-                    onClick={() => setWakifName("Almarhum / Almarhumah Orang Tua")}
+                    className="tag-pill-compact"
+                    onClick={() => setWakifName("Almarhum/ah Orang Tua")}
                   >
-                    Almarhum/ah Orang Tua
+                    + Almarhum/ah
                   </button>
                 </div>
               </div>
 
-              <div className="modal-form-group">
-                <div className="label-with-hint">
-                  <label htmlFor="donor-niat" className="input-label-with-icon">
-                    <i className="ri-chat-quote-line"></i> Niat Wakaf & Doa Khusus <span className="opt-tag">(Opsional)</span>
-                  </label>
-                </div>
+              <div className="modal-form-group-compact">
+                <label htmlFor="donor-niat" className="input-label-compact">
+                  <i className="ri-chat-quote-line"></i> Niat Wakaf & Doa Khusus <span className="opt-tag">(Opsional)</span>
+                </label>
                 <textarea
                   id="donor-niat"
-                  rows="3"
+                  rows="2"
                   value={donorNiat}
                   onChange={(e) => setDonorNiat(e.target.value)}
-                  placeholder="Tuliskan doa atau hajat khusus Anda di sini..."
-                  className="textarea-modern"
+                  placeholder="Doa atau hajat khusus Anda..."
+                  className="textarea-compact"
                 ></textarea>
-                <div className="suggestion-tags">
-                  <span className="tag-hint-title">Pilih doa:</span>
+                <div className="suggestion-tags-scroll">
                   <button
                     type="button"
-                    className="tag-pill"
+                    className="tag-pill-compact"
                     onClick={() =>
                       setDonorNiat((prev) =>
                         prev
-                          ? `${prev}, Semoga pahala mengalir abadi`
+                          ? `${prev}, Pahala mengalir abadi`
                           : "Semoga pahala jariyah ini mengalir abadi untuk keluarga."
                       )
                     }
                   >
-                    Pahala Jariyah
+                    + Pahala Jariyah
                   </button>
                   <button
                     type="button"
-                    className="tag-pill"
+                    className="tag-pill-compact"
                     onClick={() =>
                       setDonorNiat((prev) =>
                         prev
-                          ? `${prev}, Diberi keberkahan rezeki`
+                          ? `${prev}, Keberkahan rezeki`
                           : "Semoga diberi keberkahan rezeki dan kelancaran usaha."
                       )
                     }
                   >
-                    Keberkahan Rezeki
+                    + Berkah Rezeki
                   </button>
                   <button
                     type="button"
-                    className="tag-pill"
+                    className="tag-pill-compact"
                     onClick={() =>
                       setDonorNiat((prev) =>
                         prev
@@ -1891,7 +1875,7 @@ export default function CampaignClient({ initialData, whatsappCS }) {
                       )
                     }
                   >
-                    Kesembuhan
+                    + Kesembuhan
                   </button>
                 </div>
               </div>
@@ -1902,7 +1886,7 @@ export default function CampaignClient({ initialData, whatsappCS }) {
                 value={paymentMethod}
               />
 
-              <div className="modal-submit-box">
+              <div className="modal-submit-box-compact">
                 <button
                   type="submit"
                   className="btn-submit-modal-impressive"
