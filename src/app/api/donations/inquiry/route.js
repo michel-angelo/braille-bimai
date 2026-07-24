@@ -1,6 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import crypto from "crypto";
 import { sendTikTokServerEvent } from "@/lib/tiktokEvents";
+import { sendMetaServerEvent } from "@/lib/metaEvents";
 
 const rawUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseUrl = rawUrl ? rawUrl.replace(/\/rest\/v1\/?$/, "") : "";
@@ -53,7 +54,26 @@ export async function POST(req) {
       orderId: orderId,
       amount: Number(amount),
       phone: phone,
-      pageUrl: req.headers.get("referer") || "https://bimaipeduli.id/donasi",
+      pageUrl: req.headers.get("referer") || "https://braille.bimaipeduli.id",
+    });
+
+    // Lacak event server-side ke Meta Conversions API (CAPI) (100% akurat & ter-deduplikasi)
+    sendMetaServerEvent({
+      eventName: "Purchase",
+      orderId: orderId,
+      amount: Number(amount),
+      phone: phone,
+      pageUrl: req.headers.get("referer") || "https://braille.bimaipeduli.id",
+      programName: "Wakaf Al-Qur'an Braille",
+    });
+
+    sendMetaServerEvent({
+      eventName: "Lead",
+      orderId: orderId,
+      amount: Number(amount),
+      phone: phone,
+      pageUrl: req.headers.get("referer") || "https://braille.bimaipeduli.id",
+      programName: "Wakaf Al-Qur'an Braille",
     });
 
     // 2. Hubungi Duitku API untuk Inquiry Transaksi jika Duitku terkonfigurasi

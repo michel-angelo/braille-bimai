@@ -312,22 +312,24 @@ export default function CampaignClient({ initialData, whatsappCS }) {
           });
         }
 
-        // Trigger Meta Pixel Purchase & Lead events
+        // Trigger Meta Pixel Purchase & Lead events with eventID for Server CAPI Deduplication
         if (typeof window !== "undefined" && window.fbq) {
           window.fbq("track", "Purchase", {
             content_name: modalPackageName,
             value: Number(modalAmount),
             currency: "IDR"
-          });
+          }, { eventID: data.orderId });
           window.fbq("track", "Lead", {
             content_name: modalPackageName,
             value: Number(modalAmount),
             currency: "IDR"
-          });
+          }, { eventID: data.orderId });
         }
 
-        // Redirect to WhatsApp
-        window.location.href = waUrl;
+        // Redirect to WhatsApp with a 300ms delay to allow browser beacons to flush reliably
+        setTimeout(() => {
+          window.location.href = waUrl;
+        }, 300);
       } else {
         showAlert(
           data.message ||
