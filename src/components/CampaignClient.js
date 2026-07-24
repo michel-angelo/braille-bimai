@@ -521,8 +521,10 @@ export default function CampaignClient({ initialData, whatsappCS }) {
         </div>
       </header>
 
-      {/* Campaign Main Section */}
-      <section className="campaign-section">
+      {/* Main Landmark Container */}
+      <main id="main-content">
+        {/* Campaign Main Section */}
+        <section className="campaign-section">
         <div className="container">
           <div className="campaign-grid">
             {/* Left Column: Image */}
@@ -552,9 +554,9 @@ export default function CampaignClient({ initialData, whatsappCS }) {
               <div className="campaign-tracker-box">
                 <div className="campaign-collected">
                   <span className="collected-label">Terkumpul</span>
-                  <h2 className="collected-amount">
+                  <div className="collected-amount">
                     {formatCurrency(collectedAmount)}
-                  </h2>
+                  </div>
                   <span className="target-amount">
                     dari target {formatCurrency(targetAmount)}
                   </span>
@@ -1126,7 +1128,7 @@ export default function CampaignClient({ initialData, whatsappCS }) {
 
           {/* Custom Donation Box */}
           <div className="custom-donate-box">
-            <h4>Ingin berwakaf dengan nominal khusus?</h4>
+            <h3>Ingin berwakaf dengan nominal khusus?</h3>
             <div className="custom-input-group">
               <div className="custom-input-wrapper">
                 <span>Rp</span>
@@ -1491,9 +1493,9 @@ export default function CampaignClient({ initialData, whatsappCS }) {
                   setActiveFaqIndex(activeFaqIndex === 0 ? null : 0)
                 }
               >
-                <h4>
+                <h3>
                   Mengapa biaya pencetakan Al-Qur'an Braille sangat tinggi?
-                </h4>
+                </h3>
                 <i className="ri-arrow-down-s-line"></i>
               </div>
               <div className="faq-answer">
@@ -1515,7 +1517,7 @@ export default function CampaignClient({ initialData, whatsappCS }) {
                   setActiveFaqIndex(activeFaqIndex === 1 ? null : 1)
                 }
               >
-                <h4>Bagaimana cara penyaluran amanah wakaf ini?</h4>
+                <h3>Bagaimana cara penyaluran amanah wakaf ini?</h3>
                 <i className="ri-arrow-down-s-line"></i>
               </div>
               <div className="faq-answer">
@@ -1536,10 +1538,10 @@ export default function CampaignClient({ initialData, whatsappCS }) {
                   setActiveFaqIndex(activeFaqIndex === 2 ? null : 2)
                 }
               >
-                <h4>
+                <h3>
                   Apakah saya bisa berwakaf atas nama orang tua yang sudah
                   wafat?
-                </h4>
+                </h3>
                 <i className="ri-arrow-down-s-line"></i>
               </div>
               <div className="faq-answer">
@@ -1559,7 +1561,7 @@ export default function CampaignClient({ initialData, whatsappCS }) {
                   setActiveFaqIndex(activeFaqIndex === 3 ? null : 3)
                 }
               >
-                <h4>Apakah ada laporan transparansi untuk donatur?</h4>
+                <h3>Apakah ada laporan transparansi untuk donatur?</h3>
                 <i className="ri-arrow-down-s-line"></i>
               </div>
               <div className="faq-answer">
@@ -1574,6 +1576,7 @@ export default function CampaignClient({ initialData, whatsappCS }) {
           </div>
         </div>
       </section>
+      </main>
 
       {/* Bottom Area: Combined CTA & Footer (Unified Premium Dark Section) */}
       <footer className="bottom-area">
@@ -1595,7 +1598,7 @@ export default function CampaignClient({ initialData, whatsappCS }) {
 
           <div className="footer-grid">
             <div className="footer-col">
-              <h4 className="footer-col-title">Tentang Kami</h4>
+              <h3 className="footer-col-title">Tentang BIMAI</h3>
               <div className="footer-brand">
                 <img
                   src="/images/bimai-logo.png"
@@ -1620,7 +1623,7 @@ export default function CampaignClient({ initialData, whatsappCS }) {
             </div>
 
             <div className="footer-col">
-              <h4 className="footer-col-title">Hubungi Kami</h4>
+              <h3 className="footer-col-title">Hubungi Kami</h3>
               <div className="footer-contact-list">
                 <p>
                   <i className="ri-map-pin-line"></i>
@@ -1646,7 +1649,7 @@ export default function CampaignClient({ initialData, whatsappCS }) {
               <i className="ri-error-warning-line"></i>
             </div>
             <div className="disclaimer-content">
-              <h5>PERHATIAN PENTING</h5>
+              <h3 className="disclaimer-heading">PERHATIAN PENTING</h3>
               <p>
                 Mohon pastikan transfer donasi/wakaf Anda hanya dikirimkan ke
                 nomor rekening resmi atas nama{" "}
