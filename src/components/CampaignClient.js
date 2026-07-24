@@ -180,6 +180,27 @@ export default function CampaignClient({ initialData, whatsappCS }) {
   const [paymentMethod, setPaymentMethod] = useState("Transfer Manual");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // --- IMMERSIVE LOADING STATES ---
+  const [loadingPhraseIndex, setLoadingPhraseIndex] = useState(0);
+  const loadingPhrases = [
+    "Mencatat Niat Suci Wakaf Anda...",
+    "Jazakumullah Khairan Katsiran...",
+    "Menyiapkan Akses Terverifikasi & Amanah...",
+    "Mengalihkan ke Layanan Konfirmasi..."
+  ];
+
+  useEffect(() => {
+    let interval;
+    if (isSubmitting) {
+      interval = setInterval(() => {
+        setLoadingPhraseIndex((prev) => (prev + 1) % 4);
+      }, 1300);
+    } else {
+      setLoadingPhraseIndex(0);
+    }
+    return () => clearInterval(interval);
+  }, [isSubmitting]);
+
   // --- COPY BUTTON STATE ---
   const [copyStatus, setCopyStatus] = useState({});
 
@@ -1941,6 +1962,38 @@ export default function CampaignClient({ initialData, whatsappCS }) {
           </button>
         </div>
       </div>
+      {/* IMMERSIVE HIGH-CONVERTING LOADING OVERLAY */}
+      {isSubmitting && (
+        <div className="immersive-loading-overlay active">
+          <div className="immersive-loading-card">
+            {/* Pulsing Glowing Icon */}
+            <div className="loading-icon-wrapper">
+              <div className="loading-pulse-ring"></div>
+              <div className="loading-pulse-ring-outer"></div>
+              <div className="loading-icon-center">
+                <i className="ri-heart-pulse-fill"></i>
+              </div>
+            </div>
+
+            {/* Dynamic Spiritual Text */}
+            <h4 className="loading-title">Memproses Niat Wakaf...</h4>
+            <div className="loading-phrase-container">
+              <p className="loading-phrase-text" key={loadingPhraseIndex}>
+                <i className="ri-sparkles-fill"></i> {loadingPhrases[loadingPhraseIndex]}
+              </p>
+            </div>
+
+            {/* Micro Animated Progress Bar */}
+            <div className="loading-progress-track">
+              <div className="loading-progress-fill"></div>
+            </div>
+
+            <div className="loading-security-badge">
+              <i className="ri-shield-check-fill"></i> System Connected & Encrypted SSL
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
