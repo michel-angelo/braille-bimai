@@ -34,6 +34,51 @@ const brailleMap = {
   " ": [0, 0, 0, 0, 0, 0],
 };
 
+const galleryItems = [
+  {
+    id: 1,
+    src: "/images/seorang_tunanetra_sedang_membaca_alquran_braille_dipandu_oleh_ustadz_yang_juga_tunanetra_landscape_3.webp",
+    alt: "Bimbingan Mengaji Braille",
+    title: "Bimbingan Telaten Pengajar Tunanetra",
+    caption: "Ustadz pembimbing tunanetra menuntun ketepatan ujung jari santri dalam membaca titik-titik timbul huruf Al-Qur'an Braille."
+  },
+  {
+    id: 2,
+    src: "/images/para_murid_sedang_membaca_masing_masing_potrait.webp",
+    alt: "Kelas Tadarus Mandiri",
+    title: "Semangat Mengaji & Menghafal Kalamullah",
+    caption: "Para santri disabilitas netra khusyuk menyimak mushaf Braille masing-masing saat latihan hafalan harian."
+  },
+  {
+    id: 3,
+    src: "/images/murid_dewasa_sedang_membaca_alquran_braille_dibantu_ustadz_potrait.webp",
+    alt: "Pembelajaran Braille Dewasa",
+    title: "Semangat Belajar Tanpa Batas Usia",
+    caption: "Jemaah tunanetra dewasa tekun mendalami cara meraba dan mengeja ayat suci demi kemandirian sholat dan mengaji."
+  },
+  {
+    id: 4,
+    src: "/images/acara_bukber_anak-anak_tunanetra_landscape.webp",
+    alt: "Kegiatan Bersama Santri",
+    title: "Kebersamaan & Santunan Ceria",
+    caption: "Kebahagiaan para santri tunanetra dhuafa dalam acara silaturahmi, santunan, dan doa bersama pengurus yayasan."
+  },
+  {
+    id: 5,
+    src: "/images/foto_bersama_pengurus_bimai_bersama_anak-anak_tunanetra_dalam_acara_santunan-dan-buka-puasa-bersama.webp",
+    alt: "Serah Terima Bantuan",
+    title: "Penyaluran Amanah Wakif",
+    caption: "Penyerahan dukungan perlengkapan ibadah dan wakaf mushaf Al-Qur'an Braille dari para donatur."
+  },
+  {
+    id: 6,
+    src: "/images/tunanetra_perempuan_dewasa_dan_anak-anak_sedang_mebaca_alquran_braille_potrait.webp",
+    alt: "Belajar Bersama Santriwati",
+    title: "Sesi Bimbingan Santriwati",
+    caption: "Santriwati tunanetra mendalami tajwid dan kelancaran membaca Al-Qur'an Braille secara bertahap."
+  }
+];
+
 export default function CampaignClient({ initialData, whatsappCS }) {
   const router = useRouter();
 
@@ -114,6 +159,9 @@ export default function CampaignClient({ initialData, whatsappCS }) {
 
   // --- FAQ STATE ---
   const [activeFaqIndex, setActiveFaqIndex] = useState(null);
+
+  // --- GALLERY INTERACTION STATE ---
+  const [activeGalleryId, setActiveGalleryId] = useState(null);
 
   // --- READ MORE EXPANSION STATES (MOBILE) ---
   const [isDetailExpanded, setIsDetailExpanded] = useState(false);
@@ -576,84 +624,84 @@ export default function CampaignClient({ initialData, whatsappCS }) {
           >
             <h3 className="detail-title">Detail Program</h3>
             <h2 className="detail-heading">
-              LIPAT GANDAKAN KEBERKAHAN DENGAN WAKAF AL-QUR'AN BRAILLE
+              WAKAF AL-QUR'AN BRAILLE: WUJUDKAN KEMANDIRIAN IBADAH SAHABAT TUNANETRA
             </h2>
             <h3 className="detail-subheading">
-              Kesempatan Meraih Syafa'at Dari Al-Qur'an Yang Kita Wakafkan
+              Menghadirkan Mushaf Titik Timbul Layak untuk Menemani Setiap Ayat yang Dilafalkan
             </h3>
 
             <div className="detail-text-content">
               <p>
-                Sahabat disabilitas netra Muslim pra-sejahtera sangat
-                mendambakan kemandirian ibadah. Namun, keterbatasan fisik
-                membuat mereka harus bergantung pada indra peraba. Al-Qur'an
-                Braille adalah satu-satunya jembatan agar mereka bisa
-                berinteraksi langsung dengan firman Allah secara mandiri.
+                Bagi sahabat disabilitas netra, meraba titik-titik timbul pada
+                mushaf Braille adalah satu-satunya cara berinteraksi langsung
+                dengan Kalamullah secara mandiri. Meskipun tidak dapat melihat
+                indahnya tulisan ayat, semangat mereka untuk mengaji,
+                tadarus, dan menghafal Al-Qur'an sungguh luar biasa.
               </p>
               <p>
-                Sayangnya, harga pencetakan Al-Qur'an Braille sangatlah mahal
-                dibandingkan Al-Qur'an biasa. Satu set lengkap terdiri dari 30
-                jilid buku tebal berukuran besar, membutuhkan kertas khusus yang
-                tebal agar titik-titiknya tidak mudah rusak saat diraba berulang
-                kali.
+                Berbeda dari Al-Qur'an biasa, pencetakan 1 set Al-Qur'an Braille
+                memerlukan kertas khusus yang tebal dan tahan rabaan berulang
+                kali, serta terdiri dari 30 jilid buku fisik yang tebal. Karena
+                proses cetak yang terbatas, masih banyak santri tunanetra di
+                pesantren inklusi dan SLB yang harus bergantian menggunakan
+                mushaf.
               </p>
 
               <div className="inline-image-box">
                 <img
                   src="/images/murid_dewasa_sedang_membaca_alquran_braille_dibantu_ustadz_potrait.webp"
-                  alt="Kelas mengaji tunanetra"
+                  alt="Bimbingan membaca Al-Qur'an Braille"
                   loading="lazy"
                 />
                 <p className="inline-image-caption">
-                  Bimbingan belajar mengaji Al-Qur'an Braille dipandu oleh
-                  Ustadz pembimbing tunanetra secara telaten.
+                  Bimbingan belajar mengaji Al-Qur'an Braille dipandu secara
+                  telaten oleh ustadz pembimbing tunanetra.
                 </p>
               </div>
 
               <p>
                 Yayasan Bina Masyarakat Indonesia (BIMAI) berikhtiar
-                memfasilitasi kebutuhan ini dengan menyalurkan Al-Qur'an Braille
-                layak ke berbagai pesantren disabilitas, Sekolah Luar Biasa
-                (SLB-A), masjid inklusi, hingga perorangan di pelosok negeri.
-                Setiap huruf yang mereka baca dan hafal akan mengalirkan pahala
-                jariyah abadi untuk Anda.
+                memfasilitasi pencetakan dan penyaluran mushaf Al-Qur'an Braille
+                ke berbagai pesantren disabilitas, Sekolah Luar Biasa (SLB-A),
+                dan rumah tahfidz tunanetra. Setiap huruf yang diraba dan
+                dilafalkan para santri akan menjadi pahala jariyah yang terus
+                mengalir abadi bagi para wakif.
               </p>
 
               <div className="inline-image-box">
                 <img
                   src="/images/tunanetra_perempuan_dewasa_dan_anak-anak_sedang_berbincang_potrait_5.webp"
-                  alt="Interaksi santri tunanetra"
+                  alt="Kebersamaan santri tunanetra"
                   loading="lazy"
                 />
                 <p className="inline-image-caption">
-                  Kebersamaan santri perempuan dewasa dan anak-anak binaan
-                  Yayasan BIMAI saat sesi bimbingan rohani.
+                  Kebersamaan para santriwati tunanetra binaan Yayasan BIMAI
+                  saat sesi pembinaan rohani dan kelancaran hafalan.
                 </p>
               </div>
 
               <p>
                 Mari jadikan sebagian harta kita sebagai penolong di akhirat
-                kelak. Dengan berwakaf mushaf Al-Qur'an Braille, kita tidak
-                hanya memberikan sarana ibadah, tetapi juga menghidupkan harapan
-                dan menuntun langkah mereka menuju rida Allah SWT.
+                kelak. Melalui wakaf mushaf Al-Qur'an Braille, kita mendampingi
+                perjuangan mereka meraih keberkahan hidup dan mendekatkan diri
+                kepada Allah SWT.
               </p>
 
               <div className="inline-image-box">
                 <img
                   src="/images/foto_bersama_pengurus_bimai_bersama_anak-anak_tunanetra_dalam_acara_santunan-dan-buka-puasa-bersama.webp"
-                  alt="Santunan dan penyaluran wakaf"
+                  alt="Penyaluran wakaf dan kebahagiaan santri"
                   loading="lazy"
                 />
                 <p className="inline-image-caption">
                   Senyum kebahagiaan para santri tunanetra dhuafa saat menerima
-                  paket santunan dan bantuan dari para wakif.
+                  dukungan sarana belajar dan santunan dari para donatur.
                 </p>
               </div>
 
               <div className="jariyah-banner">
                 <span className="jariyah-text">
-                  <i className="ri-heart-line"></i> 1 kebaikan = 70 pahala
-                  jariyah mengajak kepada kebaikan
+                  <i className="ri-heart-line"></i> Setiap huruf yang diraba dan dibaca mengalirkan pahala jariyah abadi
                 </span>
               </div>
 
@@ -744,6 +792,73 @@ export default function CampaignClient({ initialData, whatsappCS }) {
               className={`ri-arrow-${isDetailExpanded ? "up" : "down"}-s-line`}
             ></i>
           </button>
+        </div>
+      </section>
+
+      {/* 2. DOKUMENTASI REALITAS & GALERI FOTO INTERAKTIF */}
+      <section id="galeri-dokumentasi" className="gallery-section">
+        <div className="container">
+          <div className="section-header-centered">
+            <span className="section-badge-tag">
+              <i className="ri-camera-lens-fill"></i> Galeri Dokumentasi Realitas
+            </span>
+            <h2 className="gallery-section-title">
+              Momen Perjuangan & Kebersamaan Santri Tunanetra
+            </h2>
+            <p className="gallery-section-subtitle">
+              Setiap foto menyimpan kisah nyata semangat mereka mengaji.
+              <span className="desktop-hint"> Arahkan kursor ke foto (desktop) </span>
+              <span className="mobile-hint"> Ketuk foto (mobile) </span>
+              untuk membaca penjelasan kisah di balik momen ini.
+            </p>
+          </div>
+
+          <div className="gallery-grid">
+            {galleryItems.map((item) => {
+              const isCaptionActive = activeGalleryId === item.id;
+              return (
+                <div
+                  key={item.id}
+                  className={`gallery-card-item ${isCaptionActive ? "active-touch" : ""}`}
+                  onClick={() =>
+                    setActiveGalleryId(activeGalleryId === item.id ? null : item.id)
+                  }
+                >
+                  <div className="gallery-image-box">
+                    <img
+                      src={item.src}
+                      alt={item.alt}
+                      loading="lazy"
+                      className="gallery-img"
+                    />
+                    
+                    {/* Desktop Hover Overlay */}
+                    <div className="gallery-overlay-desktop">
+                      <span className="gallery-tag">
+                        <i className="ri-heart-pulse-fill"></i> BIMAI Dokumentasi
+                      </span>
+                      <h4 className="gallery-title">{item.title}</h4>
+                      <p className="gallery-caption">{item.caption}</p>
+                    </div>
+
+                    {/* Mobile Tap Trigger Indicator */}
+                    <div className="mobile-tap-badge">
+                      <i className={isCaptionActive ? "ri-close-line" : "ri-information-line"}></i>
+                      <span>{isCaptionActive ? "Tutup" : "Keterangan"}</span>
+                    </div>
+                  </div>
+
+                  {/* Mobile Expandable Caption Drawer */}
+                  {isCaptionActive && (
+                    <div className="mobile-caption-drawer">
+                      <h4 className="mobile-caption-title">{item.title}</h4>
+                      <p className="mobile-caption-desc">{item.caption}</p>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 

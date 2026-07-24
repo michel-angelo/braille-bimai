@@ -870,6 +870,223 @@ section.bg-alt {
   transform: scale(0.97);
 }
 
+/* ==========================================================================
+   INTERACTIVE REALITY PHOTO GALLERY STYLES
+   ========================================================================== */
+.gallery-section {
+  padding: 56px 0;
+  background-color: var(--bg-light);
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.section-header-centered {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.section-badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: rgba(5, 150, 105, 0.1);
+  color: #059669;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.gallery-section-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.gallery-section-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.desktop-hint {
+  display: inline;
+}
+
+.mobile-hint {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .desktop-hint {
+    display: none;
+  }
+  .mobile-hint {
+    display: inline;
+  }
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 20px;
+}
+
+@media (min-width: 640px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.gallery-card-item {
+  background-color: var(--bg-white);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.gallery-card-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-image-box {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background-color: #0f172a;
+}
+
+.gallery-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.5s ease;
+}
+
+.gallery-card-item:hover .gallery-img {
+  transform: scale(1.05);
+}
+
+/* Desktop Hover Overlay */
+.gallery-overlay-desktop {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(6, 78, 59, 0.95) 0%, rgba(15, 23, 42, 0.75) 50%, transparent 100%);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: #ffffff;
+}
+
+@media (min-width: 768px) {
+  .gallery-card-item:hover .gallery-overlay-desktop {
+    opacity: 1;
+  }
+}
+
+.gallery-tag {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fde047;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.gallery-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.gallery-caption {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.4;
+}
+
+/* Mobile Tap Badge */
+.mobile-tap-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(4px);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 12px;
+  z-index: 2;
+}
+
+@media (min-width: 768px) {
+  .mobile-tap-badge {
+    display: none;
+  }
+}
+
+/* Mobile Caption Drawer */
+.mobile-caption-drawer {
+  padding: 14px 16px;
+  background-color: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  animation: slideDown 0.25s ease-out forwards;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mobile-caption-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+
+.mobile-caption-desc {
+  font-size: 11px;
+  color: #475569;
+  line-height: 1.4;
+}
+
 
 /* ==========================================================================
    NEW FEATURES STYLINGS (Braille Translator, Progress Bar, Packages, Modal, FAQ)
