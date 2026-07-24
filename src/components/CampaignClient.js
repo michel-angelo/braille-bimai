@@ -1648,21 +1648,25 @@ export default function CampaignClient({ initialData, whatsappCS }) {
         </div>
       </footer>
 
-      {/* High-Converting Floating Sticky CTA Bar for Mobile */}
-      <div className="floating-cta">
-        <div className="floating-cta-inner">
-          <div className="floating-cta-info">
-            <span className="floating-cta-title">Wakaf Al-Qur'an Braille</span>
-            <span className="floating-cta-sub">Mulai Rp 75.000 (Patungan 1 Juz)</span>
+      {/* Sleek Premium Floating Sticky CTA Card for Mobile */}
+      <div className="floating-cta-wrapper">
+        <div className="floating-cta-card">
+          <div className="floating-cta-meta">
+            <span className="floating-cta-badge">
+              <span className="floating-badge-dot"></span> Wakaf Al-Qur'an Braille
+            </span>
+            <span className="floating-cta-price">
+              Patungan Mulai <strong>Rp 75rb</strong>
+            </span>
           </div>
           <button
             type="button"
-            className="btn-floating-donate"
+            className="btn-floating-cta-gold"
             id="cta-floating"
             onClick={() => handleOpenModal("Wakaf Patungan (1 Juz)", 75000)}
           >
-            <i className="ri-heart-fill"></i>
-            Wakaf Sekarang
+            <span>Wakaf Sekarang</span>
+            <i className="ri-arrow-right-line"></i>
           </button>
         </div>
       </div>

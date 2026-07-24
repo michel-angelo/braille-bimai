@@ -799,75 +799,103 @@ section.bg-alt {
   flex-shrink: 0;
 }
 
-/* Floating Sticky CTA Bar for Mobile */
-.floating-cta {
+/* Sleek Floating Mobile CTA Bar Card */
+.floating-cta-wrapper {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  padding: 10px 16px;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.12);
-  border-top: 1px solid rgba(226, 232, 240, 0.8);
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
   z-index: 100;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
 }
 
-.floating-cta-inner {
-  max-width: 640px;
-  margin: 0 auto;
+@media (min-width: 768px) {
+  .floating-cta-wrapper {
+    display: none;
+  }
+}
+
+.floating-cta-card {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 480px;
+  background: linear-gradient(135deg, #064e3b 0%, #022c22 100%);
+  border: 1px solid rgba(234, 179, 8, 0.35);
+  border-radius: 18px;
+  padding: 10px 14px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25), 0 2px 8px rgba(6, 78, 59, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
 }
 
-.floating-cta-info {
+.floating-cta-meta {
   display: flex;
   flex-direction: column;
   gap: 2px;
   min-width: 0;
 }
 
-.floating-cta-title {
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--primary);
+.floating-cta-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: #a7f3d0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.floating-cta-sub {
-  font-size: 10px;
-  font-weight: 600;
-  color: #059669;
+.floating-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #34d399;
+  box-shadow: 0 0 8px #34d399;
+  flex-shrink: 0;
+}
+
+.floating-cta-price {
+  font-size: 12px;
+  color: #ffffff;
   white-space: nowrap;
 }
 
-.btn-floating-donate {
-  background: linear-gradient(135deg, #059669 0%, #047857 100%);
-  color: #ffffff;
+.floating-cta-price strong {
+  color: #fde047;
+  font-weight: 800;
+}
+
+.btn-floating-cta-gold {
+  background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+  color: #0f172a;
   border: none;
   border-radius: 12px;
   padding: 10px 16px;
   font-size: 12px;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 6px;
-  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.4);
   transition: all 0.2s ease;
   white-space: nowrap;
   flex-shrink: 0;
 }
 
-.btn-floating-donate:active {
-  transform: scale(0.97);
+.btn-floating-cta-gold:active {
+  transform: scale(0.96);
+  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.3);
 }
 
 /* ==========================================================================
